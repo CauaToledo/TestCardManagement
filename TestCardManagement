@@ -1,0 +1,20 @@
+# test_card_management.py
+
+import pytest
+from app.models import Card, Board
+
+def test_create_card():
+    board = Board(name="Sprint 1")
+    card = Card(title="Implementar login", description="Usuário deve conseguir logar", board=board)
+    assert card.title == "Implementar login"
+    assert card.board.name == "Sprint 1"
+
+def test_move_card_between_columns():
+    board = Board(name="Sprint 1")
+    card = Card(title="Testar login", description="QA testar login", board=board)
+    
+    card.status = "To Do"
+    card.move_to("In Progress")
+    
+    assert card.status == "In Progress"
+
